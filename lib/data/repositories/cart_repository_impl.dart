@@ -1,5 +1,5 @@
-import 'package:convenience_marketplace/domain/entities/ProductEntity.dart';
-import 'package:convenience_marketplace/domain/repositories/CartRepository.dart';
+import 'package:convenience_marketplace/domain/entities/product_entity.dart';
+import 'package:convenience_marketplace/domain/repositories/cart_repository.dart';
 
 class CartRepositoryImpl extends CartRepository {
   List<ProductEntity> _productsInCart = [];

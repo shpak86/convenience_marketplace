@@ -1,16 +1,16 @@
 class ProductEntity {
-  String uuid;
+  String id;
   String label;
   String description;
-  double rating;
   String manufacturerUuid;
   String manufacturerName;
+  double rating;
   double price;
   String units;
   int category;
 
   ProductEntity(
-    this.uuid,
+    this.id,
     this.label,
     this.price,
     this.units, {
