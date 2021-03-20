@@ -59,7 +59,8 @@ class ProductsListItemWidget extends StatelessWidget {
       height: 150,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/product-default.png"),
+          // image: AssetImage("assets/images/product-default.png"),
+          image: AssetImage(_productEntity.imageUri.isEmpty ? 'assets/images/product-default.png' : _productEntity.imageUri),
           fit: BoxFit.contain,
         ),
         borderRadius: BorderRadius.all(Radius.circular(20.0)),

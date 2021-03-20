@@ -7,7 +7,8 @@ class ProductEntity {
   double rating;
   double price;
   String units;
-  int category;
+  String category;
+  String imageUri;
 
   ProductEntity(
     this.id,
@@ -15,9 +16,10 @@ class ProductEntity {
     this.description,
     this.price,
     this.units, {
-    this.category,
-    this.rating,
-    this.manufacturerUuid,
-    this.manufacturerName,
+    this.imageUri = "",
+    this.category = "None",
+    this.rating = 0,
+    this.manufacturerUuid = "",
+    this.manufacturerName = "Unknown",
   });
 }

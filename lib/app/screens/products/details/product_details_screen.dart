@@ -38,20 +38,20 @@ class ProductDetailsScreen extends StatelessWidget {
     } else {
       return ListView(
         children: [
-          headerImageContainer(),
+          headerImageContainer(context, product),
           bodyGroup(context, product),
         ],
       );
     }
   }
 
-  Widget headerImageContainer() => Container(
+  Widget headerImageContainer(BuildContext context, ProductEntity product) => Container(
         height: 300,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24.0), bottomRight: Radius.circular(24.0)),
           image: DecorationImage(
             fit: BoxFit.contain,
-            image: AssetImage('assets/images/product-default.png'),
+            image: AssetImage(product.imageUri.isEmpty ? 'assets/images/product-default.png' : product.imageUri),
           ),
         ),
       );
@@ -61,7 +61,7 @@ class ProductDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            productName(context, product),
+            productNameGroup(context, product),
             ratingBar(context, product),
             productPrice(context, product),
             productDescription(context, product),
@@ -70,7 +70,7 @@ class ProductDetailsScreen extends StatelessWidget {
       );
 }
 
-Widget productName(BuildContext context, ProductEntity product) => Padding(
+Widget productNameGroup(BuildContext context, ProductEntity product) => Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 8.0),
       child: Row(
         children: [

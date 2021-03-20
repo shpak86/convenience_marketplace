@@ -23,12 +23,9 @@ class ShopsListScreen extends StatelessWidget {
                   var item = state.value[index];
                   return Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, ShopDetailsScreen.route, arguments: ScreenArguments<String>(item.id));
-                      },
-                      child: ShopsListItemWidget(item.name, item.description, rating: item.rating),
-                    ),
+                    child: ShopsListItemWidget(item, onTap: () {
+                      Navigator.pushNamed(context, ShopDetailsScreen.route, arguments: ScreenArguments<String>(item.id));
+                    }),
                   );
                 }),
           ),

@@ -39,20 +39,20 @@ class ShopDetailsScreen extends StatelessWidget {
     } else {
       return ListView(
         children: [
-          headerImage(),
+          headerImage(context, shop),
           shopBody(context, shop)
         ],
       );
     }
   }
 
-  Widget headerImage() => Container(
+  Widget headerImage(BuildContext context, ShopEntity shop) => Container(
         height: 300,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24.0), bottomRight: Radius.circular(24.0)),
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage('assets/images/default-shop.png'),
+            image: AssetImage(shop.imageUri.isEmpty ? 'assets/images/default-shop.png' : shop.imageUri),
           ),
         ),
       );
