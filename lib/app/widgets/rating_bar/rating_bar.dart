@@ -11,10 +11,11 @@ class RatingBar extends StatelessWidget {
     this._length = length;
     this._color = color;
 
-    if (_rating == 0) {
+    if (_rating == null || _rating == 0) {
       for (int i = 1; i <= _length; i++) {
         _items.add(Icons.star_border_rounded);
       }
+      _color = Colors.grey;
     } else {
       for (int i = 1; i <= _length; i++) {
         if (i <= _rating) {

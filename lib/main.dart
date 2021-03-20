@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green
       ),
       routes: {
         ShopsListScreen.route: (context) => ShopsListScreen(),
@@ -53,11 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ShopsListItemWidget(
-              "Label",
-              "Grocery",
-              rating: 3.325,
-            ),
             Center(
               child: RatingBar(
                 3.813,

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShopsListScreen extends StatelessWidget {
   static const String route = "ShopsListScreen";
+  static final String heroTag = "shops_list_to_details_tag";
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +23,11 @@ class ShopsListScreen extends StatelessWidget {
                   var item = state.value[index];
                   return Padding(
                     padding: EdgeInsets.all(8.0),
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () {
                         Navigator.pushNamed(context, ShopDetailsScreen.route, arguments: ScreenArguments<String>(item.id));
                       },
-                      child: ShopsListItemWidget(item.name, item.category, rating: item.rating),
+                      child: ShopsListItemWidget(item.name, item.description, rating: item.rating),
                     ),
                   );
                 }),

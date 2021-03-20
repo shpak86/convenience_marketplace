@@ -20,30 +20,38 @@ class ProductsListScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) => ProductsListScreenCubit()..getProducts(shopId),
         child: BlocBuilder<ProductsListScreenCubit, ProductsListScreenState>(
-          builder: (context, state) => Container(
-            child: ListView.builder(
-              itemCount: state.value == null ? 0 : state.value.length,
-              itemBuilder: (context, index) => productItemContainer(context, shopId, state.value[index]),
-            ),
-          ),
+          builder: (context, state) => state.value == null
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Container(
+                  padding: EdgeInsets.all(8.0),
+                  child: GridView.count(
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 8.0,
+                    crossAxisCount: 2,
+                    childAspectRatio: 18 / 23,
+                    children: state.value.map((product) => productItemContainer(context, shopId, product)).toList(),
+                  ),
+                ),
         ),
       ),
     );
   }
 
   Widget productItemContainer(BuildContext context, String shopId, ProductEntity item) {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () {
-          Navigator.pushNamed(context, ProductDetailsScreen.route,
-              arguments: ScreenArguments<Map<String, String>>({
-                ProductDetailsScreen.keyShopId: shopId,
-                ProductDetailsScreen.keyProductId: item.id
-              }));
-        },
-        child: ProductsListItemWidget(item),
-      ),
+    return ProductsListItemWidget(
+      item,
+      onDetailsTap: () {
+        Navigator.pushNamed(
+          context,
+          ProductDetailsScreen.route,
+          arguments: ScreenArguments<Map<String, String>>({
+            ProductDetailsScreen.keyShopId: shopId,
+            ProductDetailsScreen.keyProductId: item.id
+          }),
+        );
+      },
     );
   }
 }

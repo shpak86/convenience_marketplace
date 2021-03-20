@@ -12,9 +12,9 @@ class ProductEntity {
   ProductEntity(
     this.id,
     this.label,
+    this.description,
     this.price,
     this.units, {
-    this.description,
     this.category,
     this.rating,
     this.manufacturerUuid,
