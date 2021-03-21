@@ -24,7 +24,8 @@ class ShopsListScreen extends StatelessWidget {
                   return Padding(
                     padding: EdgeInsets.all(8.0),
                     child: ShopsListItemWidget(item, onTap: () {
-                      Navigator.pushNamed(context, ShopDetailsScreen.route, arguments: ScreenArguments<String>(item.id));
+                      Navigator.pushNamed(context, ShopDetailsScreen.route, arguments: ScreenArguments<String>(item.id))
+                      .then((value) => context.read<ShopsListScreenCubit>().getShopsList());
                     }),
                   );
                 }),

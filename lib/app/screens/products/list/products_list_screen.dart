@@ -50,7 +50,7 @@ class ProductsListScreen extends StatelessWidget {
             ProductDetailsScreen.keyShopId: shopId,
             ProductDetailsScreen.keyProductId: item.id
           }),
-        );
+        ).then((value) => context.read<ProductsListScreenCubit>().getProducts(shopId));
       },
     );
   }

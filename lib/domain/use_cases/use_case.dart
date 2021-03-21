@@ -10,4 +10,9 @@ abstract class UseCase {
   Future<List<ProductEntity>> getProductsList(String shopId);
 
   Future<ProductEntity> getProduct(String shopId, String productId);
+
+  Future<ShopEntity> switchFavoriteShop(String id);
+
+  Future<ProductEntity> switchFavoriteProduct(String shopId, String productId);
+
 }

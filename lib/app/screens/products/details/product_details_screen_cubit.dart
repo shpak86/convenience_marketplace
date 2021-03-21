@@ -12,6 +12,10 @@ class ProductDetailsScreenCubit extends Cubit<ProductDetailsScreenState> {
   UseCase _useCase = DependencyProvider().useCase;
 
   getProduct(String shopId, String productId) {
-    _useCase.getProduct(shopId, productId).then((value) => emit(ProductDetailsScreenStateValue(value)));
+    _useCase.getProduct(shopId, productId).then((value) => emit(ProductDetailsScreenStateValue(value, shopId)));
+  }
+
+  switchFavorite(String shopId, String productId) {
+    _useCase.switchFavoriteProduct(shopId, productId).then((value) => emit(ProductDetailsScreenStateValue(value, shopId)));
   }
 }

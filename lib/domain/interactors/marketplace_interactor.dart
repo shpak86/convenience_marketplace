@@ -30,4 +30,14 @@ class MarketplaceInteractor extends UseCase {
   Future<List<ShopEntity>> getShopsList({SearchParameters parameters}) {
     return _shopsRepositoryInteractor.getShopsList();
   }
+
+  @override
+  Future<ShopEntity> switchFavoriteShop(id) {
+    return _shopsRepositoryInteractor.switchFavorite(id);
+  }
+
+  @override
+  Future<ProductEntity> switchFavoriteProduct(String shopId, String productId) {
+    return _productsRepositoryInteractor.switchProduct(shopId, productId);
+  }
 }

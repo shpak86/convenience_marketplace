@@ -3,15 +3,19 @@ import 'package:convenience_marketplace/domain/entities/search_parameters.dart';
 import 'package:convenience_marketplace/domain/repositories/products_repository.dart';
 
 class ProductsRepositoryInteractor {
-  ProductsRepository productsRepository;
+  ProductsRepository _repository;
 
-  ProductsRepositoryInteractor(this.productsRepository);
+  ProductsRepositoryInteractor(this._repository);
 
   Future<List<ProductEntity>> getProductsList(String shopId, {SearchParameters parameters}) {
-    return productsRepository.getProductsList(shopId, parameters: parameters);
+    return _repository.getProductsList(shopId, parameters: parameters);
   }
 
   Future<ProductEntity> getProduct(String shopId, String productId) {
-    return productsRepository.getProduct(shopId, productId);
+    return _repository.getProduct(shopId, productId);
+  }
+  
+  Future<ProductEntity> switchProduct(String shopId, String productId) {
+    return _repository.switchFavorite(shopId, productId);
   }
 }

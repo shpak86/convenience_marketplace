@@ -9,6 +9,7 @@ class ProductEntity {
   String units;
   String category;
   String imageUri;
+  bool favorite;
 
   ProductEntity(
     this.id,
@@ -21,5 +22,6 @@ class ProductEntity {
     this.rating = 0,
     this.manufacturerUuid = "",
     this.manufacturerName = "Unknown",
+    this.favorite = false,
   });
 }

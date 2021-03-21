@@ -4,5 +4,7 @@ import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
 abstract class ShopsRepository {
   Future<List<ShopEntity>> getShopsList({SearchParameters parameters});
 
-  Future<ShopEntity> getShop(String uuid);
+  Future<ShopEntity> getShop(String id);
+
+  Future<ShopEntity> switchFavorite(String id);
 }

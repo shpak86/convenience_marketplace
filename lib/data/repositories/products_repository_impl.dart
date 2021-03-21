@@ -1,4 +1,3 @@
-import 'package:convenience_marketplace/di/dependency_provider.dart';
 import 'package:convenience_marketplace/di/storage.dart';
 import 'package:convenience_marketplace/domain/entities/product_entity.dart';
 import 'package:convenience_marketplace/domain/entities/search_parameters.dart';
@@ -6,7 +5,6 @@ import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
 import 'package:convenience_marketplace/domain/repositories/products_repository.dart';
 
 class ProductsRepositoryImpl extends ProductsRepository {
-
   List<ShopEntity> _shops = Storage.shops;
   Map<String, List<ProductEntity>> _products = Storage.products;
 
@@ -27,5 +25,14 @@ class ProductsRepositoryImpl extends ProductsRepository {
   @override
   Future<List<ProductEntity>> getProductsList(String shopId, {SearchParameters parameters}) async {
     return Future.delayed(Duration(seconds: 1), () => _products[shopId]);
+  }
+
+  @override
+  Future<ProductEntity> switchFavorite(String shopId, String productId) async {
+    ProductEntity product = await getProduct(shopId, productId);
+    if (product != null) {
+      product.favorite = !product.favorite;
+    }
+    return Future.delayed(Duration(milliseconds: 300), () => product);
   }
 }

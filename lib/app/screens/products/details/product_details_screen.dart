@@ -26,20 +26,20 @@ class ProductDetailsScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) => ProductDetailsScreenCubit()..getProduct(shopId, productId),
         child: BlocBuilder<ProductDetailsScreenCubit, ProductDetailsScreenState>(
-          builder: (context, state) => mainContainer(context, state.value),
+          builder: (context, state) => mainContainer(context, state),
         ),
       ),
     );
   }
 
-  Widget mainContainer(BuildContext context, ProductEntity product) {
-    if (product == null) {
+  Widget mainContainer(BuildContext context, ProductDetailsScreenState state) {
+    if (state.product == null) {
       return Center(child: CircularProgressIndicator());
     } else {
       return ListView(
         children: [
-          headerImageContainer(context, product),
-          bodyGroup(context, product),
+          headerImageContainer(context, state.product),
+          bodyGroup(context, state),
         ],
       );
     }
@@ -56,79 +56,81 @@ class ProductDetailsScreen extends StatelessWidget {
         ),
       );
 
-  Widget bodyGroup(BuildContext context, ProductEntity product) => Padding(
+  Widget bodyGroup(BuildContext context, ProductDetailsScreenState state) => Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            productNameGroup(context, product),
-            ratingBar(context, product),
-            productPrice(context, product),
-            productDescription(context, product),
+            productNameGroup(context, state),
+            ratingBar(context, state.product),
+            productPrice(context, state.product),
+            productDescription(context, state.product),
           ],
         ),
       );
-}
 
-Widget productNameGroup(BuildContext context, ProductEntity product) => Padding(
-      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(
-              product.label,
-              style: TextStyle(fontSize: 20.0),
+  Widget productNameGroup(BuildContext context, ProductDetailsScreenState state) => Padding(
+        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                state.product.label,
+                style: TextStyle(fontSize: 20.0),
+              ),
             ),
-          ),
-          favoriteButton(),
-        ],
-      ),
-    );
-
-Widget favoriteButton() => IconButton(
-      icon: Icon(
-        Icons.favorite,
-        color: Colors.grey,
-      ),
-      onPressed: () {},
-    );
-
-Widget ratingBar(BuildContext context, ProductEntity product) => Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          RatingBar(product.rating),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              product.rating.toStringAsFixed(1),
-              style: TextStyle(fontSize: 16),
-            ),
-          )
-        ],
-      ),
-    );
-
-Widget productPrice(BuildContext context, ProductEntity product) => Padding(
-      padding: EdgeInsets.all(8.0),
-      child: RichText(
-        text: TextSpan(
-          text: "\$" + product.price.toString(),
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-          children: <TextSpan>[
-            TextSpan(
-                text: " / ",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.normal,
-                )),
-            TextSpan(text: product.units, style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+            favoriteButton(context, state.product, state.shopId),
           ],
         ),
-      ),
-    );
+      );
 
-Widget productDescription(BuildContext context, ProductEntity product) => Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Text(product.description),
-    );
+  Widget favoriteButton(BuildContext context, ProductEntity product, String shopId) => IconButton(
+        icon: Icon(
+          Icons.favorite,
+          color: product.favorite ? Colors.red : Colors.grey,
+        ),
+        onPressed: () {
+          context.read<ProductDetailsScreenCubit>().switchFavorite(shopId, product.id);
+        },
+      );
+
+  Widget ratingBar(BuildContext context, ProductEntity product) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            RatingBar(product.rating),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(
+                product.rating.toStringAsFixed(1),
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ],
+        ),
+      );
+
+  Widget productPrice(BuildContext context, ProductEntity product) => Padding(
+        padding: EdgeInsets.all(8.0),
+        child: RichText(
+          text: TextSpan(
+            text: "\$" + product.price.toString(),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            children: <TextSpan>[
+              TextSpan(
+                  text: " / ",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
+                  )),
+              TextSpan(text: product.units, style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+            ],
+          ),
+        ),
+      );
+
+  Widget productDescription(BuildContext context, ProductEntity product) => Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(product.description),
+      );
+}

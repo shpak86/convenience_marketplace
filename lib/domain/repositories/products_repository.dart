@@ -5,4 +5,6 @@ abstract class ProductsRepository {
   Future<List<ProductEntity>> getProductsList(String shopId, {SearchParameters parameters});
 
   Future<ProductEntity> getProduct(String shopId, String productId);
+
+  Future<ProductEntity> switchFavorite(String shopId, String productId);
 }

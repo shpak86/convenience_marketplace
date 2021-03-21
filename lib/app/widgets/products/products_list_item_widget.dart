@@ -47,7 +47,7 @@ class ProductsListItemWidget extends StatelessWidget {
               ratingContainer(),
             ],
           ),
-          headerContainer(context)
+          productNameContainer(context)
         ],
       ),
       onTap: _onDetailsTap,
@@ -71,18 +71,16 @@ class ProductsListItemWidget extends StatelessWidget {
 
   Widget favoriteButton() {
     return Container(
+      padding: EdgeInsets.all(12.0),
       height: 150,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          IconButton(
-            icon: Icon(Icons.favorite),
-            onPressed: _onFavoriteTap,
-            color: Colors.grey,
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-          )
+          Icon(
+            Icons.favorite,
+            color: _productEntity.favorite ? Colors.red : Colors.grey,
+          ),
         ],
       ),
     );
@@ -96,18 +94,21 @@ class ProductsListItemWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          RatingBar(_productEntity.rating, color: Colors.amber,)
+          RatingBar(
+            _productEntity.rating,
+            color: Colors.amber,
+          )
         ],
       ),
     );
   }
 
-  Widget headerContainer(BuildContext context) {
+  Widget productNameContainer(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 1.0, left: 12.0, right: 12.0),
+      padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
       child: Text(
         _productEntity.label,
-        style: GoogleFonts.lato(textStyle: Theme.of(context).textTheme.subtitle1),
+        style: GoogleFonts.lato(textStyle: Theme.of(context).textTheme.bodyText1),
         maxLines: 2,
       ),
     );
@@ -138,7 +139,7 @@ class ProductsListItemWidget extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           text: "\$" + _productEntity.price.toString(),
-          style: GoogleFonts.lato(textStyle: Theme.of(context).textTheme.subtitle1).merge(TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
           children: <TextSpan>[
             TextSpan(text: " / ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal)),
             TextSpan(text: _productEntity.units, style: GoogleFonts.lato(textStyle: Theme.of(context).textTheme.caption).merge(TextStyle(color: Colors.white)))

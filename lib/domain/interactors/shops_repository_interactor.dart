@@ -7,11 +7,16 @@ class ShopsRepositoryInteractor {
 
   ShopsRepositoryInteractor(this._repository);
 
-  Future<ShopEntity> getShop(String uuid) async {
-    return _repository.getShop(uuid);
+  Future<ShopEntity> getShop(String id) async {
+    return _repository.getShop(id);
   }
 
   Future<List<ShopEntity>> getShopsList({SearchParameters parameters}) async {
     return _repository.getShopsList();
   }
+
+  Future<ShopEntity> switchFavorite(String id) {
+    return _repository.switchFavorite(id);
+  }
+  
 }

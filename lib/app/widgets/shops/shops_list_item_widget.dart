@@ -1,5 +1,4 @@
 import 'package:convenience_marketplace/app/screens/products/list/products_list_screen.dart';
-import 'package:convenience_marketplace/app/screens/shops/details/shop_details_screen.dart';
 import 'package:convenience_marketplace/app/utils/screen_arguments.dart';
 import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar.dart';
 import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
@@ -16,6 +15,7 @@ class ShopsListItemWidget extends StatelessWidget {
   String _description;
   Function _onTap;
   ShopEntity _shop;
+  bool _favorite;
 
   ShopsListItemWidget(ShopEntity shop, {Function onTap}) {
     _shop = shop;
@@ -23,6 +23,7 @@ class ShopsListItemWidget extends StatelessWidget {
     _name = shop.name;
     _rating = shop.rating;
     _category = shop.category;
+    _favorite = shop.favorite;
     _description = shop.description;
     _onTap = onTap == null ? () {} : onTap;
   }
@@ -31,43 +32,45 @@ class ShopsListItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.5), blurRadius: 5.0, spreadRadius: 3.0)
-        ],
-        color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(8.0),
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        border: Border.all(color: Colors.black12),
+        color: Colors.white,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GestureDetector(
-            child: Container(
-              child: Column(
-                children: [
-                  imageContainer(),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-                    child: Column(
-                      children: [
-                        headerGroup(context),
-                        ratingGroup(context),
-                        descriptionContainer(context),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            onTap: _onTap,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-            child: shoppingButton(context),
-          ),
+          mainGroup(context),
+          buttonContainer(context),
         ],
       ),
     );
   }
+
+  Widget mainGroup(BuildContext context) => InkWell(
+        child: Container(
+          child: Column(
+            children: [
+              imageContainer(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    headerGroup(context),
+                    ratingGroup(context),
+                    descriptionContainer(context),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        onTap: _onTap,
+      );
+
+  Widget buttonContainer(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
+        child: shoppingButton(context),
+      );
 
   Widget ratingGroup(BuildContext context) => Row(
         children: [
@@ -89,15 +92,16 @@ class ShopsListItemWidget extends StatelessWidget {
 
   Widget headerGroup(BuildContext context) => Row(children: [
         Expanded(child: nameContainer(context)),
-        favoriteButton(),
+        favoriteIcon(),
       ]);
 
-  Widget favoriteButton() => IconButton(
-        icon: Icon(
+  Widget favoriteIcon() => Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Icon(
           Icons.favorite,
-          color: Colors.grey,
+          color: _favorite ? Colors.red : Colors.grey,
         ),
-      );
+  );
 
   Widget imageContainer() => Container(
         height: 200,

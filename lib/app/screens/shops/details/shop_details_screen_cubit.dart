@@ -14,4 +14,8 @@ class ShopDetailsScreenCubit extends Cubit<ShopDetailsScreenState> {
   getShop(String id) {
     _useCase.getShop(id).then((value) => emit(ShopDetailsValue(value)));
   }
+
+  switchFavorite(String id) {
+    _useCase.switchFavoriteShop(id).then((value) => emit(ShopDetailsValue(value)));
+  }
 }
