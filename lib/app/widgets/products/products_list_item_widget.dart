@@ -107,7 +107,7 @@ class ProductsListItemWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
       child: Text(
-        _productEntity.label,
+        _productEntity.name,
         style: GoogleFonts.lato(textStyle: Theme.of(context).textTheme.bodyText1),
         maxLines: 2,
       ),

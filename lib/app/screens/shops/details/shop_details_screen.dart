@@ -1,17 +1,15 @@
 import 'package:convenience_marketplace/app/screens/products/list/products_list_screen.dart';
 import 'package:convenience_marketplace/app/screens/shops/details/shop_details_screen_cubit.dart';
+import 'package:convenience_marketplace/app/screens/shops/rating/shop_rating_screen.dart';
 import 'package:convenience_marketplace/app/utils/screen_arguments.dart';
 import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar.dart';
-import 'package:convenience_marketplace/di/dependency_provider.dart';
 import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
-import 'package:convenience_marketplace/domain/use_cases/use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ShopDetailsScreen extends StatelessWidget {
   static final String route = "ShopDetailsScreen";
   static final String heroTag = "shops_list_to_details_tag";
-  UseCase _useCase = DependencyProvider().useCase;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +52,7 @@ class ShopDetailsScreen extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24.0), bottomRight: Radius.circular(24.0)),
           image: DecorationImage(
-            fit: BoxFit.cover,
+            fit: BoxFit.fitHeight,
             image: AssetImage(shop.imageUri.isEmpty ? 'assets/images/default-shop.png' : shop.imageUri),
           ),
         ),
@@ -99,17 +97,22 @@ class ShopDetailsScreen extends StatelessWidget {
         },
       );
 
-  Widget ratingBar(BuildContext context, ShopEntity shop) => Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: RatingBar(shop.rating),
-          ),
-          Text(
-            shop.rating.toStringAsFixed(1),
-            style: TextStyle(fontSize: 16),
-          )
-        ],
+  Widget ratingBar(BuildContext context, ShopEntity shop) => InkWell(
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RatingBar(shop.rating),
+            ),
+            Text(
+              shop.rating.toStringAsFixed(1),
+              style: TextStyle(fontSize: 16),
+            )
+          ],
+        ),
+        onTap: () {
+          Navigator.pushNamed(context, ShopRatingScreen.route, arguments: ScreenArguments<String>(shop.id));
+        },
       );
 
   Widget categoryLabel(BuildContext context, ShopEntity shop) => Padding(

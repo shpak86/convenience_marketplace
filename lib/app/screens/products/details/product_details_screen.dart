@@ -1,4 +1,5 @@
 import 'package:convenience_marketplace/app/screens/products/details/product_details_screen_cubit.dart';
+import 'package:convenience_marketplace/app/screens/products/rating/product_rating_screen.dart';
 import 'package:convenience_marketplace/app/utils/screen_arguments.dart';
 import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar.dart';
 import 'package:convenience_marketplace/domain/entities/product_entity.dart';
@@ -50,7 +51,7 @@ class ProductDetailsScreen extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24.0), bottomRight: Radius.circular(24.0)),
           image: DecorationImage(
-            fit: BoxFit.contain,
+            fit: BoxFit.fitHeight,
             image: AssetImage(product.imageUri.isEmpty ? 'assets/images/product-default.png' : product.imageUri),
           ),
         ),
@@ -62,7 +63,7 @@ class ProductDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             productNameGroup(context, state),
-            ratingBar(context, state.product),
+            ratingBar(context, state),
             productPrice(context, state.product),
             productDescription(context, state.product),
           ],
@@ -75,7 +76,7 @@ class ProductDetailsScreen extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                state.product.label,
+                state.product.name,
                 style: TextStyle(fontSize: 20.0),
               ),
             ),
@@ -94,20 +95,31 @@ class ProductDetailsScreen extends StatelessWidget {
         },
       );
 
-  Widget ratingBar(BuildContext context, ProductEntity product) => Padding(
+  Widget ratingBar(BuildContext context, ProductDetailsScreenState state) => Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            RatingBar(product.rating),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(
-                product.rating.toStringAsFixed(1),
-                style: TextStyle(fontSize: 16),
-              ),
+        child: InkWell(
+            child: Row(
+              children: [
+                RatingBar(state.product.rating),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    state.product.rating.toStringAsFixed(1),
+                    style: TextStyle(fontSize: 16),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                ProductRatingScreen.route,
+                arguments: ScreenArguments<Map<String, String>>({
+                  ProductRatingScreen.keyShopId: state.shopId,
+                  ProductRatingScreen.keyProductId: state.product.id
+                }),
+              );
+            }),
       );
 
   Widget productPrice(BuildContext context, ProductEntity product) => Padding(

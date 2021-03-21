@@ -106,7 +106,7 @@ class ShopsListItemWidget extends StatelessWidget {
   Widget imageContainer() => Container(
         height: 200,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
           image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(_imageUri.isEmpty ? 'assets/images/default-shop.png' : _imageUri),

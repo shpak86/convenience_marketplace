@@ -1,6 +1,6 @@
 class ProductEntity {
   String id;
-  String label;
+  String name;
   String description;
   String manufacturerUuid;
   String manufacturerName;
@@ -13,7 +13,7 @@ class ProductEntity {
 
   ProductEntity(
     this.id,
-    this.label,
+    this.name,
     this.description,
     this.price,
     this.units, {
