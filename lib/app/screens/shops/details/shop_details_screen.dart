@@ -40,14 +40,14 @@ class ShopDetailsScreen extends StatelessWidget {
     } else {
       return ListView(
         children: [
-          headerImage(context, shop),
-          shopBody(context, shop)
+          imageContainer(context, shop),
+          shopBodyGroup(context, shop)
         ],
       );
     }
   }
 
-  Widget headerImage(BuildContext context, ShopEntity shop) => Container(
+  Widget imageContainer(BuildContext context, ShopEntity shop) => Container(
         height: 300,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24.0), bottomRight: Radius.circular(24.0)),
@@ -58,16 +58,16 @@ class ShopDetailsScreen extends StatelessWidget {
         ),
       );
 
-  Widget shopBody(BuildContext context, ShopEntity shop) => Padding(
+  Widget shopBodyGroup(BuildContext context, ShopEntity shop) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             shopName(context, shop),
-            ratingBar(context, shop),
-            categoryLabel(context, shop),
-            shopLocation(context, shop),
-            shopDescription(context, shop),
+            ratingContainer(context, shop),
+            categoryContainer(context, shop),
+            locationContainer(context, shop),
+            descriptionContainer(context, shop),
           ],
         ),
       );
@@ -82,12 +82,12 @@ class ShopDetailsScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 20.0),
               ),
             ),
-            favoriteButton(context, shop),
+            favoriteButtonContainer(context, shop),
           ],
         ),
       );
 
-  Widget favoriteButton(BuildContext context, ShopEntity shop) => IconButton(
+  Widget favoriteButtonContainer(BuildContext context, ShopEntity shop) => IconButton(
         icon: Icon(
           Icons.favorite,
           color: shop.favorite ? Colors.red : Colors.grey,
@@ -97,7 +97,7 @@ class ShopDetailsScreen extends StatelessWidget {
         },
       );
 
-  Widget ratingBar(BuildContext context, ShopEntity shop) => InkWell(
+  Widget ratingContainer(BuildContext context, ShopEntity shop) => InkWell(
         child: Row(
           children: [
             Padding(
@@ -115,7 +115,7 @@ class ShopDetailsScreen extends StatelessWidget {
         },
       );
 
-  Widget categoryLabel(BuildContext context, ShopEntity shop) => Padding(
+  Widget categoryContainer(BuildContext context, ShopEntity shop) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
@@ -131,7 +131,7 @@ class ShopDetailsScreen extends StatelessWidget {
         ),
       );
 
-  Widget shopLocation(BuildContext context, ShopEntity shop) => Padding(
+  Widget locationContainer(BuildContext context, ShopEntity shop) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           children: [
@@ -147,7 +147,7 @@ class ShopDetailsScreen extends StatelessWidget {
         ),
       );
 
-  Widget shopDescription(BuildContext context, ShopEntity shop) => Padding(
+  Widget descriptionContainer(BuildContext context, ShopEntity shop) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(shop.description ?? ""),
       );

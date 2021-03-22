@@ -20,35 +20,39 @@ class ProductsListScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) => ProductsListScreenCubit()..getProducts(shopId),
         child: BlocBuilder<ProductsListScreenCubit, ProductsListScreenState>(
-          builder: (context, state) => state.value == null
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Container(
-                  padding: EdgeInsets.all(8.0),
-                  child: GridView.count(
-                    mainAxisSpacing: 8.0,
-                    crossAxisSpacing: 8.0,
-                    crossAxisCount: 2,
-                    childAspectRatio: 18 / 23,
-                    children: state.value.map((product) => productItemContainer(context, shopId, product)).toList(),
-                  ),
-                ),
+          builder: (context, state) => mainContainer(context, shopId, state.value),
         ),
       ),
     );
   }
 
-  Widget productItemContainer(BuildContext context, String shopId, ProductEntity item) {
+  mainContainer(BuildContext context, String shopId, List<ProductEntity> products) {
+    if (products == null) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      return Container(
+        padding: EdgeInsets.all(8.0),
+        child: GridView.count(
+          mainAxisSpacing: 8.0,
+          crossAxisSpacing: 8.0,
+          crossAxisCount: 2,
+          childAspectRatio: 18 / 23,
+          children: products.map((product) => productItemContainer(context, shopId, product)).toList(),
+        ),
+      );
+    }
+  }
+
+  Widget productItemContainer(BuildContext context, String shopId, ProductEntity product) {
     return ProductsListItemWidget(
-      item,
+      product,
       onDetailsTap: () {
         Navigator.pushNamed(
           context,
           ProductDetailsScreen.route,
           arguments: ScreenArguments<Map<String, String>>({
             ProductDetailsScreen.keyShopId: shopId,
-            ProductDetailsScreen.keyProductId: item.id
+            ProductDetailsScreen.keyProductId: product.id
           }),
         ).then((value) => context.read<ProductsListScreenCubit>().getProducts(shopId));
       },

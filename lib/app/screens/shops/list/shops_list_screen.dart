@@ -11,27 +11,37 @@ class ShopsListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Shops")),
-      body: BlocProvider(
-        create: (context) => ShopsListScreenCubit()..getShopsList(),
-        child: BlocBuilder<ShopsListScreenCubit, ShopsListScreenState>(
-          builder: (context, state) => Container(
-            child: ListView.builder(
-                itemCount: state.value == null ? 0 : state.value.length,
-                itemBuilder: (context, index) {
-                  var item = state.value[index];
-                  return Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: ShopsListItemWidget(item, onTap: () {
-                      Navigator.pushNamed(context, ShopDetailsScreen.route, arguments: ScreenArguments<String>(item.id))
-                      .then((value) => context.read<ShopsListScreenCubit>().getShopsList());
-                    }),
-                  );
-                }),
-          ),
-        ),
+    return BlocProvider(
+      create: (context) => ShopsListScreenCubit()..getShopsList(),
+      child: BlocBuilder<ShopsListScreenCubit, ShopsListScreenState>(
+        builder: (context, state) => mainContainer(context, state),
       ),
+      // ),
     );
+  }
+
+  Widget mainContainer(BuildContext context, ShopsListScreenState state) {
+    if (state.value == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      return Container(
+        child: ListView.builder(
+            itemCount: state.value == null ? 0 : state.value.length,
+            itemBuilder: (context, index) {
+              var item = state.value[index];
+              return Padding(
+                padding: EdgeInsets.all(8.0),
+                child: ShopsListItemWidget(
+                  item,
+                  onTap: () {
+                    Navigator.pushNamed(context, ShopDetailsScreen.route, arguments: ScreenArguments<String>(item.id)).then((value) => context.read<ShopsListScreenCubit>().getShopsList());
+                  },
+                ),
+              );
+            }),
+      );
+    }
   }
 }

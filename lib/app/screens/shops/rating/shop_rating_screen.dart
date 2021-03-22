@@ -35,7 +35,7 @@ class ShopRatingScreen extends StatelessWidget {
       return Center(
         child: ListView(
           children: [
-            headerImage(context, state),
+            headerImageContainer(context, state),
             nameContainer(context, state),
             ratingSelectorContainer(context, state),
             commentContainer(context, state),
@@ -45,7 +45,7 @@ class ShopRatingScreen extends StatelessWidget {
     }
   }
 
-  Widget headerImage(BuildContext context, ShopRatingScreenState state) => Container(
+  Widget headerImageContainer(BuildContext context, ShopRatingScreenState state) => Container(
         height: 300,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(24.0), bottomRight: Radius.circular(24.0)),

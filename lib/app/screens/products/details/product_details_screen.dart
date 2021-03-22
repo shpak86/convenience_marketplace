@@ -63,9 +63,9 @@ class ProductDetailsScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             productNameGroup(context, state),
-            ratingBar(context, state),
-            productPrice(context, state.product),
-            productDescription(context, state.product),
+            ratingContainer(context, state),
+            priceContainer(context, state.product),
+            descriptionContainer(context, state.product),
           ],
         ),
       );
@@ -74,18 +74,20 @@ class ProductDetailsScreen extends StatelessWidget {
         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
         child: Row(
           children: [
-            Expanded(
-              child: Text(
-                state.product.name,
-                style: TextStyle(fontSize: 20.0),
-              ),
-            ),
-            favoriteButton(context, state.product, state.shopId),
+            productNameContainer(context, state.product),
+            favoriteButtonContainer(context, state.product, state.shopId),
           ],
         ),
       );
 
-  Widget favoriteButton(BuildContext context, ProductEntity product, String shopId) => IconButton(
+  Widget productNameContainer(BuildContext context, ProductEntity product) => Expanded(
+        child: Text(
+          product.name,
+          style: TextStyle(fontSize: 20.0),
+        ),
+      );
+
+  Widget favoriteButtonContainer(BuildContext context, ProductEntity product, String shopId) => IconButton(
         icon: Icon(
           Icons.favorite,
           color: product.favorite ? Colors.red : Colors.grey,
@@ -95,7 +97,7 @@ class ProductDetailsScreen extends StatelessWidget {
         },
       );
 
-  Widget ratingBar(BuildContext context, ProductDetailsScreenState state) => Padding(
+  Widget ratingContainer(BuildContext context, ProductDetailsScreenState state) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
             child: Row(
@@ -122,7 +124,7 @@ class ProductDetailsScreen extends StatelessWidget {
             }),
       );
 
-  Widget productPrice(BuildContext context, ProductEntity product) => Padding(
+  Widget priceContainer(BuildContext context, ProductEntity product) => Padding(
         padding: EdgeInsets.all(8.0),
         child: RichText(
           text: TextSpan(
@@ -141,7 +143,7 @@ class ProductDetailsScreen extends StatelessWidget {
         ),
       );
 
-  Widget productDescription(BuildContext context, ProductEntity product) => Padding(
+  Widget descriptionContainer(BuildContext context, ProductEntity product) => Padding(
         padding: EdgeInsets.all(8.0),
         child: Text(product.description),
       );

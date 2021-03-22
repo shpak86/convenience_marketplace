@@ -7,7 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ShopsListItemWidget extends StatelessWidget {
-  static int _ratingPrecision = 1;
+  static const int _ratingPrecision = 1;
+  static const frameColor = Colors.black12;
+  static const cardBackgroundColor = Colors.white;
+  static const containerBorderRadius = 20.0;
+
   String _imageUri;
   String _name;
   double _rating;
@@ -30,44 +34,60 @@ class ShopsListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return mainContainer(context);
+  }
+
+  Widget mainContainer(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        border: Border.all(color: Colors.black12),
-        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(containerBorderRadius)),
+        border: Border.all(color: frameColor),
+        color: cardBackgroundColor,
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           mainGroup(context),
-          buttonContainer(context),
+          shoppingButtonContainer(context),
         ],
       ),
     );
   }
 
-  Widget mainGroup(BuildContext context) => InkWell(
-        child: Container(
-          child: Column(
-            children: [
-              imageContainer(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    headerGroup(context),
-                    ratingGroup(context),
-                    descriptionContainer(context),
-                  ],
-                ),
+  Widget mainGroup(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+            child: Container(
+              child: Column(
+                children: [
+                  imageGroup(context),
+                  textGroup(context),
+                ],
               ),
-            ],
+            ),
+            onTap: _onTap,
           ),
-        ),
-        onTap: _onTap,
+        ],
       );
 
-  Widget buttonContainer(BuildContext context) => Padding(
+  Widget textGroup(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            nameContainer(context),
+            descriptionContainer(context),
+          ],
+        ),
+      );
+
+  Widget imageGroup(BuildContext context) => Stack(
+        children: [
+          imageContainer(),
+          imageControlsGroup(context),
+        ],
+      );
+
+  Widget shoppingButtonContainer(BuildContext context) => Padding(
         padding: const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
         child: shoppingButton(context),
       );
@@ -90,21 +110,30 @@ class ShopsListItemWidget extends StatelessWidget {
         ],
       );
 
-  Widget headerGroup(BuildContext context) => Row(children: [
-        Expanded(child: nameContainer(context)),
-        favoriteIcon(),
-      ]);
+  Widget imageControlsGroup(BuildContext context) => Container(
+        height: 150,
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Row(children: [
+              Expanded(child: ratingGroup(context)),
+              favoriteContainer(),
+            ]),
+          ],
+        ),
+      );
 
-  Widget favoriteIcon() => Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Icon(
+  Widget favoriteContainer() => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(
           Icons.favorite,
           color: _favorite ? Colors.red : Colors.grey,
         ),
-  );
+      );
 
   Widget imageContainer() => Container(
-        height: 200,
+        height: 150,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
           image: DecorationImage(
@@ -114,20 +143,26 @@ class ShopsListItemWidget extends StatelessWidget {
         ),
       );
 
-  Widget nameContainer(BuildContext context) => Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: Text(
-          _name,
-          style: GoogleFonts.lato(textStyle: Theme.of(context).textTheme.headline6),
-          maxLines: 2,
-        ),
+  Widget nameContainer(BuildContext context) => Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Text(
+                _name,
+                style: GoogleFonts.lato(textStyle: Theme.of(context).textTheme.headline6),
+                maxLines: 2,
+              ),
+            ),
+          ),
+        ],
       );
 
   Widget descriptionContainer(BuildContext context) => Padding(
         padding: const EdgeInsets.all(6.0),
         child: Text(
           _description,
-          maxLines: 5,
+          maxLines: 3,
           style: GoogleFonts.lato(textStyle: Theme.of(context).textTheme.bodyText1),
         ),
       );

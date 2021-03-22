@@ -35,15 +35,24 @@ class RatingSelectorState extends State<RatingSelector> {
     for (int i = 1; i <= _maxValue; i++) {
       row.add(
         IconButton(
-            icon: Icon(
-              i <= _rating ? Icons.star_rounded : Icons.star_border_rounded,
-              color: Colors.amber,
-            ),
-            onPressed: () => setState(() {
-                  _rating = i;
-                })),
+          icon: Icon(
+            getIcon(i),
+            color: Colors.amber,
+          ),
+          onPressed: () => setState(() {
+            _rating = i;
+          }),
+        ),
       );
     }
     return row;
+  }
+
+  IconData getIcon(int index) {
+    if (index <= _rating) {
+      return Icons.star_rounded;
+    } else {
+      return Icons.star_border_rounded;
+    }
   }
 }

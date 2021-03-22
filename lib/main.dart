@@ -1,3 +1,4 @@
+import 'package:convenience_marketplace/app/screens/navigator/NavigatorScreen.dart';
 import 'package:convenience_marketplace/app/screens/products/details/product_details_screen.dart';
 import 'package:convenience_marketplace/app/screens/products/rating/product_rating_screen.dart';
 import 'package:convenience_marketplace/app/screens/shops/details/shop_details_screen.dart';
@@ -19,7 +20,7 @@ class MarketApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Convenience market',
       theme: ThemeData(primarySwatch: Colors.green),
       routes: {
         ShopsListScreen.route: (context) => ShopsListScreen(),
@@ -29,7 +30,7 @@ class MarketApp extends StatelessWidget {
         ShopRatingScreen.route: (context) => ShopRatingScreen(),
         ProductRatingScreen.route: (context) => ProductRatingScreen(),
       },
-      home: ShopsListScreen(),
+      home: NavigatorScreen(),
       // home: ShopRatingScreen(),
     );
   }
