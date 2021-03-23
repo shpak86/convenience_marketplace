@@ -1,5 +1,9 @@
-class ProductEntity {
+import 'package:equatable/equatable.dart';
+
+class ProductEntity extends Equatable {
   String id;
+  String shopId;
+  String shopName;
   String name;
   String description;
   String manufacturerUuid;
@@ -13,10 +17,12 @@ class ProductEntity {
 
   ProductEntity(
     this.id,
+    this.shopId,
     this.name,
     this.description,
     this.price,
     this.units, {
+    this.shopName = "",
     this.imageUri = "",
     this.category = "None",
     this.rating = 0,
@@ -24,4 +30,10 @@ class ProductEntity {
     this.manufacturerName = "Unknown",
     this.favorite = false,
   });
+
+  @override
+  List<Object> get props => [
+        id,
+        shopId
+      ];
 }

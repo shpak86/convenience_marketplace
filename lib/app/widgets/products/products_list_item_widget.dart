@@ -58,7 +58,6 @@ class ProductsListItemWidget extends StatelessWidget {
         height: 100,
         decoration: BoxDecoration(
           image: DecorationImage(
-            // image: AssetImage("assets/images/product-default.png"),
             image: AssetImage(_productEntity.imageUri.isEmpty ? 'assets/images/product-default.png' : _productEntity.imageUri),
             fit: BoxFit.contain,
           ),
@@ -125,7 +124,7 @@ class ProductsListItemWidget extends StatelessWidget {
         padding: const EdgeInsets.only(right: 6.0),
         child: RichText(
           text: TextSpan(
-            text: "\$" + _productEntity.price.toString(),
+            text: "\$" + _productEntity.price.toStringAsFixed(2),
             style: GoogleFonts.lato(textStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
             children: <TextSpan>[
               TextSpan(text: " / ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal)),

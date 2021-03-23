@@ -17,18 +17,17 @@ class ProductDetailsScreen extends StatelessWidget {
     String shopId = arguments.value[keyShopId] ?? "";
     String productId = arguments.value[keyProductId] ?? "";
 
-    return Scaffold(
-      appBar: AppBar(title: Text("Product")),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => {},
-        label: Text("Add to cart"),
-        icon: Icon(Icons.add_shopping_cart),
-      ),
-      body: BlocProvider(
-        create: (context) => ProductDetailsScreenCubit()..getProduct(shopId, productId),
-        child: BlocBuilder<ProductDetailsScreenCubit, ProductDetailsScreenState>(
-          builder: (context, state) => mainContainer(context, state),
-        ),
+    return BlocProvider(
+      create: (context) => ProductDetailsScreenCubit()..getProduct(shopId, productId),
+      child: BlocBuilder<ProductDetailsScreenCubit, ProductDetailsScreenState>(
+        builder: (context, state) => Scaffold(
+            appBar: AppBar(title: Text("Product")),
+            floatingActionButton: FloatingActionButton.extended(
+              onPressed: () => context.read<ProductDetailsScreenCubit>().addToCart(state.shopId, state.product.id),
+              label: Text("Add to cart"),
+              icon: Icon(Icons.add_shopping_cart),
+            ),
+            body: mainContainer(context, state)),
       ),
     );
   }
@@ -128,7 +127,7 @@ class ProductDetailsScreen extends StatelessWidget {
         padding: EdgeInsets.all(8.0),
         child: RichText(
           text: TextSpan(
-            text: "\$" + product.price.toString(),
+            text: "\$" + product.price.toStringAsFixed(2),
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
             children: <TextSpan>[
               TextSpan(

@@ -2,15 +2,15 @@ part of 'products_list_screen_cubit.dart';
 
 @immutable
 abstract class ProductsListScreenState {
-  List<ProductEntity> value;
+  List<ProductEntity> products;
   String error;
 }
 
 class ProductsListScreenStateInitial extends ProductsListScreenState {}
 
 class ProductsListScreenStateValue extends ProductsListScreenState {
-  ProductsListScreenStateValue(List<ProductEntity> value) {
-    this.value = value;
+  ProductsListScreenStateValue(List<ProductEntity> products) {
+    this.products = products;
   }
 }
 

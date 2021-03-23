@@ -1,9 +1,9 @@
-import 'package:convenience_marketplace/domain/entities/product_entity.dart';
+import 'package:convenience_marketplace/domain/entities/cart_item_entity.dart';
 
 abstract class CartRepository {
-  Future<List<ProductEntity>> getProducts();
+  Future<List<CartItemEntity>> getCart();
 
-  add(ProductEntity productEntity);
+  Future<List<CartItemEntity>> add(String shopId, String productId);
 
-  remove(ProductEntity productEntity);
+  Future<List<CartItemEntity>> remove(String shopId, String productId);
 }

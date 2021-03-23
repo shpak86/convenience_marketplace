@@ -2,15 +2,15 @@ part of 'shops_list_screen_cubit.dart';
 
 @immutable
 abstract class ShopsListScreenState {
-  List<ShopEntity> value;
+  List<ShopEntity> shops;
   String error;
 }
 
 class ShopsListScreenStateInitial extends ShopsListScreenState {}
 
 class ShopsListScreenStateUpdate extends ShopsListScreenState {
-  ShopsListScreenStateUpdate(List<ShopEntity> value) {
-    this.value = value;
+  ShopsListScreenStateUpdate(List<ShopEntity> shops) {
+    this.shops = shops;
   }
 }
 

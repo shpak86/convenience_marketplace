@@ -21,16 +21,16 @@ class ShopsListScreen extends StatelessWidget {
   }
 
   Widget mainContainer(BuildContext context, ShopsListScreenState state) {
-    if (state.value == null) {
+    if (state.shops == null) {
       return Center(
         child: CircularProgressIndicator(),
       );
     } else {
       return Container(
         child: ListView.builder(
-            itemCount: state.value == null ? 0 : state.value.length,
+            itemCount: state.shops == null ? 0 : state.shops.length,
             itemBuilder: (context, index) {
-              var item = state.value[index];
+              var item = state.shops[index];
               return Padding(
                 padding: EdgeInsets.all(8.0),
                 child: ShopsListItemWidget(

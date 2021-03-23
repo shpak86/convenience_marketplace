@@ -18,4 +18,8 @@ class ProductDetailsScreenCubit extends Cubit<ProductDetailsScreenState> {
   switchFavorite(String shopId, String productId) {
     _useCase.switchFavoriteProduct(shopId, productId).then((value) => emit(ProductDetailsScreenStateValue(value, shopId)));
   }
+
+  addToCart(String shopId, String productId) {
+    _useCase.addProductToCart(shopId, productId);
+  }
 }

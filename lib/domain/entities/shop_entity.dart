@@ -1,4 +1,6 @@
-class ShopEntity {
+import 'package:equatable/equatable.dart';
+
+class ShopEntity extends Equatable {
   String id;
   String name;
   String description;
@@ -22,4 +24,9 @@ class ShopEntity {
     this.rating = 0,
     this.favorite = false,
   });
+
+  @override
+  List<Object> get props => [
+        id
+      ];
 }

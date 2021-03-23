@@ -1,4 +1,4 @@
-import 'package:convenience_marketplace/app/screens/navigator/NavigatorScreen.dart';
+import 'package:convenience_marketplace/app/screens/navigator/navigator_screen.dart';
 import 'package:convenience_marketplace/app/screens/products/details/product_details_screen.dart';
 import 'package:convenience_marketplace/app/screens/products/rating/product_rating_screen.dart';
 import 'package:convenience_marketplace/app/screens/shops/details/shop_details_screen.dart';

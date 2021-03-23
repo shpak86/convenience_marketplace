@@ -28,7 +28,7 @@ class ShopDetailsScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) => ShopDetailsScreenCubit()..getShop(shopId),
         child: BlocBuilder<ShopDetailsScreenCubit, ShopDetailsScreenState>(
-          builder: (context, state) => mainContainer(context, state.value),
+          builder: (context, state) => mainContainer(context, state.shop),
         ),
       ),
     );

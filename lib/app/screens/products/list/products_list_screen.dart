@@ -20,7 +20,7 @@ class ProductsListScreen extends StatelessWidget {
       body: BlocProvider(
         create: (context) => ProductsListScreenCubit()..getProducts(shopId),
         child: BlocBuilder<ProductsListScreenCubit, ProductsListScreenState>(
-          builder: (context, state) => mainContainer(context, shopId, state.value),
+          builder: (context, state) => mainContainer(context, shopId, state.products),
         ),
       ),
     );
@@ -55,6 +55,9 @@ class ProductsListScreen extends StatelessWidget {
             ProductDetailsScreen.keyProductId: product.id
           }),
         ).then((value) => context.read<ProductsListScreenCubit>().getProducts(shopId));
+      },
+      onCartTap: () {
+        context.read<ProductsListScreenCubit>().addToCart(shopId, product.id);
       },
     );
   }

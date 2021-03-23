@@ -14,4 +14,12 @@ class ProductsListScreenCubit extends Cubit<ProductsListScreenState> {
   getProducts(String shopId) {
     _useCase.getProductsList(shopId).then((value) => emit(ProductsListScreenStateValue(value)));
   }
+
+  addProduct(String shopId, String productId) {
+    _useCase.addProductToCart(shopId, productId);
+  }
+
+  addToCart(String shopId, String productId) {
+    _useCase.addProductToCart(shopId, productId);
+  }
 }
