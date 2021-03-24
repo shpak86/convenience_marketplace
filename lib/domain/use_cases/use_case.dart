@@ -21,4 +21,6 @@ abstract class UseCase {
   Future<List<CartItemEntity>> addProductToCart(String shopId, String productId);
 
   Future<List<CartItemEntity>> removeProductFromCart(String shopId, String productId);
+
+  Future<List<CartItemEntity>> findProducts({String namePattern});
 }

@@ -1,7 +1,7 @@
 import 'package:convenience_marketplace/app/screens/products/details/product_details_screen_cubit.dart';
 import 'package:convenience_marketplace/app/screens/products/rating/product_rating_screen.dart';
 import 'package:convenience_marketplace/app/utils/screen_arguments.dart';
-import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar.dart';
+import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar_widget.dart';
 import 'package:convenience_marketplace/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,23 +10,27 @@ class ProductDetailsScreen extends StatelessWidget {
   static const String route = "ProductDetailsScreen";
   static const String keyShopId = "shop_id";
   static const String keyProductId = "product_id";
+  static const String keyDisplayCartButton = "display_cart_button";
 
   @override
   Widget build(BuildContext context) {
     ScreenArguments<Map<String, String>> arguments = ModalRoute.of(context).settings.arguments;
     String shopId = arguments.value[keyShopId] ?? "";
     String productId = arguments.value[keyProductId] ?? "";
+    String displayCartButton = arguments.value[keyDisplayCartButton] ?? "true";
 
     return BlocProvider(
       create: (context) => ProductDetailsScreenCubit()..getProduct(shopId, productId),
       child: BlocBuilder<ProductDetailsScreenCubit, ProductDetailsScreenState>(
         builder: (context, state) => Scaffold(
             appBar: AppBar(title: Text("Product")),
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: () => context.read<ProductDetailsScreenCubit>().addToCart(state.shopId, state.product.id),
-              label: Text("Add to cart"),
-              icon: Icon(Icons.add_shopping_cart),
-            ),
+            floatingActionButton: displayCartButton == "true"
+                ? FloatingActionButton.extended(
+                    onPressed: () => context.read<ProductDetailsScreenCubit>().addToCart(state.shopId, state.product.id),
+                    label: Text("Add to cart"),
+                    icon: Icon(Icons.add_shopping_cart),
+                  )
+                : null,
             body: mainContainer(context, state)),
       ),
     );
@@ -101,7 +105,7 @@ class ProductDetailsScreen extends StatelessWidget {
         child: InkWell(
             child: Row(
               children: [
-                RatingBar(state.product.rating),
+                RatingBarWidget(state.product.rating),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Text(

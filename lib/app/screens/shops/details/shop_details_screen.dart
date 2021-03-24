@@ -2,7 +2,7 @@ import 'package:convenience_marketplace/app/screens/products/list/products_list_
 import 'package:convenience_marketplace/app/screens/shops/details/shop_details_screen_cubit.dart';
 import 'package:convenience_marketplace/app/screens/shops/rating/shop_rating_screen.dart';
 import 'package:convenience_marketplace/app/utils/screen_arguments.dart';
-import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar.dart';
+import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar_widget.dart';
 import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -102,7 +102,7 @@ class ShopDetailsScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: RatingBar(shop.rating),
+              child: RatingBarWidget(shop.rating),
             ),
             Text(
               shop.rating.toStringAsFixed(1),

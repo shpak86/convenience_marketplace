@@ -1,6 +1,6 @@
 import 'package:convenience_marketplace/app/screens/products/list/products_list_screen.dart';
 import 'package:convenience_marketplace/app/utils/screen_arguments.dart';
-import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar.dart';
+import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar_widget.dart';
 import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -96,7 +96,7 @@ class ShopsListItemWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(6.0),
-            child: RatingBar(_rating),
+            child: RatingBarWidget(_rating),
           ),
           Padding(
             padding: const EdgeInsets.all(4.0),

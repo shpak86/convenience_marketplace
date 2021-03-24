@@ -1,6 +1,6 @@
 import 'package:convenience_marketplace/app/screens/products/rating/product_rating_screen_cubit.dart';
 import 'package:convenience_marketplace/app/utils/screen_arguments.dart';
-import 'package:convenience_marketplace/app/widgets/rating_selector/rating_selector.dart';
+import 'package:convenience_marketplace/app/widgets/rating_selector/rating_selector_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -71,7 +71,7 @@ class ProductRatingScreen extends StatelessWidget {
 
   Widget ratingSelectorContainer(BuildContext context, ProductRatingScreenState state) => Padding(
         padding: EdgeInsets.all(8.0),
-        child: RatingSelector(),
+        child: RatingSelectorWidget(),
       );
 
   Widget commentContainer(BuildContext context, ProductRatingScreenState state) => Padding(

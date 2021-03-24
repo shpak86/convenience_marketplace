@@ -1,14 +1,16 @@
 import 'package:convenience_marketplace/domain/entities/cart_item_entity.dart';
 import 'package:flutter/material.dart';
 
-class CartListItem extends StatelessWidget {
+class CartListItemWidget extends StatelessWidget {
   CartItemEntity _cartItemEntity;
   Function _onAddItem;
   Function _onRemoveItem;
+  Function _onTap;
 
-  CartListItem(this._cartItemEntity, {Function onAddItem, Function onRemoveItem}) {
-    this._onAddItem = onAddItem == null ? () {} : onAddItem;
-    this._onRemoveItem = onRemoveItem == null ? () {} : onRemoveItem;
+  CartListItemWidget(this._cartItemEntity, {Function onAddItem, Function onRemoveItem, Function onTap}) {
+    this._onAddItem = onAddItem ?? () {};
+    this._onRemoveItem = onRemoveItem ?? () {};
+    this._onTap = onTap ?? () {};
   }
 
   @override
@@ -17,13 +19,17 @@ class CartListItem extends StatelessWidget {
   }
 
   Widget mainContainer(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        imageContainer(),
-        Expanded(child: bodyContainer(context)),
-      ],
+    return InkWell(
+      splashColor: Colors.blue,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          imageContainer(),
+          Expanded(child: bodyContainer(context)),
+        ],
+      ),
+      onTap: _onTap,
     );
   }
 
@@ -88,12 +94,12 @@ class CartListItem extends StatelessWidget {
         // mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-              splashColor: Colors.green,
+              splashColor: Colors.red,
               iconSize: 20,
               icon: Icon(
-                Icons.plus_one,
+                Icons.exposure_minus_1,
               ),
-              onPressed: _onAddItem),
+              onPressed: _onRemoveItem),
           Container(
             padding: EdgeInsets.all(4.0),
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.blue),
@@ -109,12 +115,12 @@ class CartListItem extends StatelessWidget {
             ),
           ),
           IconButton(
-              splashColor: Colors.red,
+              splashColor: Colors.green,
               iconSize: 20,
               icon: Icon(
-                Icons.exposure_minus_1,
+                Icons.plus_one,
               ),
-              onPressed: _onRemoveItem),
+              onPressed: _onAddItem),
         ],
       ),
     );

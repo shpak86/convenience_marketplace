@@ -1,24 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class RatingSelector extends StatefulWidget {
+class RatingSelectorWidget extends StatefulWidget {
   int _maxValue;
 
-  RatingSelector({int maxValue = 5}) {
+  RatingSelectorWidget({int maxValue = 5}) {
     _maxValue = maxValue;
   }
 
   @override
   State<StatefulWidget> createState() {
-    return RatingSelectorState(_maxValue);
+    return RatingSelectorWidgetState(_maxValue);
   }
 }
 
-class RatingSelectorState extends State<RatingSelector> {
+class RatingSelectorWidgetState extends State<RatingSelectorWidget> {
   int _rating = 0;
   int _maxValue;
 
-  RatingSelectorState(this._maxValue);
+  RatingSelectorWidgetState(this._maxValue);
 
   @override
   Widget build(BuildContext context) {

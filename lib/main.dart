@@ -4,7 +4,7 @@ import 'package:convenience_marketplace/app/screens/products/rating/product_rati
 import 'package:convenience_marketplace/app/screens/shops/details/shop_details_screen.dart';
 import 'package:convenience_marketplace/app/screens/shops/list/shops_list_screen.dart';
 import 'package:convenience_marketplace/app/screens/shops/rating/shop_rating_screen.dart';
-import 'package:convenience_marketplace/app/widgets/rating_selector/rating_selector.dart';
+import 'package:convenience_marketplace/app/widgets/rating_selector/rating_selector_widget.dart';
 import 'package:convenience_marketplace/di/dependency_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Center(
-              child: Flexible(child: RatingSelector()),
+              child: Flexible(child: RatingSelectorWidget()),
             ),
           ],
         ),

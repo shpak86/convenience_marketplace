@@ -1,10 +1,12 @@
-import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar.dart';
+import 'package:convenience_marketplace/app/widgets/cart/cart_button_widget.dart';
+import 'package:convenience_marketplace/app/widgets/rating_bar/rating_bar_widget.dart';
 import 'package:convenience_marketplace/domain/entities/product_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductsListItemWidget extends StatelessWidget {
+  final _imageHeight = 130.0;
   ProductEntity _productEntity;
   Function _onCartTap;
   Function _onFavoriteTap;
@@ -55,7 +57,7 @@ class ProductsListItemWidget extends StatelessWidget {
       );
 
   Widget imageContainer() => Container(
-        height: 100,
+        height: _imageHeight,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(_productEntity.imageUri.isEmpty ? 'assets/images/product-default.png' : _productEntity.imageUri),
@@ -68,7 +70,7 @@ class ProductsListItemWidget extends StatelessWidget {
 
   Widget favoriteButton() => Container(
         padding: EdgeInsets.all(12.0),
-        height: 100,
+        height: _imageHeight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,12 +85,12 @@ class ProductsListItemWidget extends StatelessWidget {
 
   Widget ratingContainer() => Container(
         padding: EdgeInsets.all(8.0),
-        height: 150,
+        height: _imageHeight,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            RatingBar(
+            RatingBarWidget(
               _productEntity.rating,
               color: Colors.amber,
             )
@@ -97,7 +99,7 @@ class ProductsListItemWidget extends StatelessWidget {
       );
 
   Widget productNameContainer(BuildContext context) => Container(
-        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+        padding: const EdgeInsets.only(top: 8.0, left: 16.0, right: 16.0),
         child: Text(
           _productEntity.name,
           style: GoogleFonts.lato(textStyle: Theme.of(context).textTheme.bodyText1),
@@ -163,12 +165,19 @@ class ProductsListItemWidget extends StatelessWidget {
         ),
       );
 
-  Widget cardFooterGroup(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(bottom: 6.0, left: 12.0, right: 12.0),
-        child: Row(
-          children: [
-            cartButton(context)
-          ],
-        ),
+  Widget cardFooterGroup(BuildContext context) => Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 6.0, left: 12.0, right: 12.0),
+              child: CartButtonWidget(
+                _productEntity.price.toStringAsFixed(2),
+                _productEntity.units,
+                onTap: _onCartTap,
+              ),
+            ),
+          ),
+          // cartButton(context)
+        ],
       );
 }

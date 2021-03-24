@@ -51,8 +51,8 @@ class NavigatorScreenState extends State<NavigatorScreen> {
         currentIndex: _selectedIndex,
 
         backgroundColor: Colors.green,
-        selectedItemColor: Colors.black,
-        unselectedItemColor: Colors.black38,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
         onTap: _onItemTapped,
       ),
     );

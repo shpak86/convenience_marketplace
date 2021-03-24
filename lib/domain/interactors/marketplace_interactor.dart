@@ -4,6 +4,7 @@ import 'package:convenience_marketplace/domain/entities/search_parameters.dart';
 import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
 import 'package:convenience_marketplace/domain/interactors/cart_repository_interactor.dart';
 import 'package:convenience_marketplace/domain/interactors/products_repository_interactor.dart';
+import 'package:convenience_marketplace/domain/interactors/search_repository_interactor.dart';
 import 'package:convenience_marketplace/domain/interactors/shops_repository_interactor.dart';
 import 'package:convenience_marketplace/domain/use_cases/use_case.dart';
 
@@ -11,8 +12,14 @@ class MarketplaceInteractor extends UseCase {
   ProductsRepositoryInteractor _productsRepositoryInteractor;
   ShopsRepositoryInteractor _shopsRepositoryInteractor;
   CartRepositoryInteractor _cartRepositoryInteractor;
+  SearchRepositoryInteractor _searchRepositoryInteractor;
 
-  MarketplaceInteractor(this._productsRepositoryInteractor, this._shopsRepositoryInteractor, this._cartRepositoryInteractor);
+  MarketplaceInteractor(
+    this._productsRepositoryInteractor,
+    this._shopsRepositoryInteractor,
+    this._cartRepositoryInteractor,
+    this._searchRepositoryInteractor,
+  );
 
   @override
   Future<ProductEntity> getProduct(String shopId, String productId) {
@@ -57,5 +64,10 @@ class MarketplaceInteractor extends UseCase {
   @override
   Future<List<CartItemEntity>> removeProductFromCart(String shopId, String productId) {
     return _cartRepositoryInteractor.remove(shopId, productId);
+  }
+
+  @override
+  Future<List<CartItemEntity>> findProducts({String namePattern}) {
+    return _searchRepositoryInteractor.findProducts(namePattern: namePattern);
   }
 }

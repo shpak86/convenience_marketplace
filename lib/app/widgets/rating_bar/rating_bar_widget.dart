@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class RatingBar extends StatelessWidget {
+class RatingBarWidget extends StatelessWidget {
   double _rating;
   int _length;
   Color _color;
   List<IconData> _items = [];
 
-  RatingBar(rating, {int length = 5, Color color = Colors.orange}) {
+  RatingBarWidget(rating, {int length = 5, Color color = Colors.orange}) {
     this._rating = rating;
     this._length = length;
     this._color = color;

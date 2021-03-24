@@ -1,5 +1,7 @@
 import 'package:convenience_marketplace/app/screens/cart/cart_screen_cubit.dart';
-import 'package:convenience_marketplace/app/widgets/cart/cart_list_item.dart';
+import 'package:convenience_marketplace/app/screens/products/details/product_details_screen.dart';
+import 'package:convenience_marketplace/app/utils/screen_arguments.dart';
+import 'package:convenience_marketplace/app/widgets/cart/cart_list_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,15 +24,18 @@ class CartScreen extends StatelessWidget {
         itemCount: state.items.length,
         itemBuilder: (context, index) {
           var item = state.items[index];
-          return CartListItem(
-            item,
-            onAddItem: () {
-              context.read<CartScreenCubit>().addProduct(item.shop.id, item.product.id);
-            },
-            onRemoveItem: () {
-              context.read<CartScreenCubit>().removeProduct(item.shop.id, item.product.id);
-            },
-          );
+          return CartListItemWidget(item, onAddItem: () {
+            context.read<CartScreenCubit>().addProduct(item.shop.id, item.product.id);
+          }, onRemoveItem: () {
+            context.read<CartScreenCubit>().removeProduct(item.shop.id, item.product.id);
+          }, onTap: () {
+            Navigator.pushNamed(context, ProductDetailsScreen.route,
+                arguments: ScreenArguments<Map<String, String>>({
+                  ProductDetailsScreen.keyShopId: item.shop.id,
+                  ProductDetailsScreen.keyProductId: item.product.id,
+                  ProductDetailsScreen.keyDisplayCartButton: "false"
+                }));
+          });
         },
       );
     }
