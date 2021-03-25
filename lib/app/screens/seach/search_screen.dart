@@ -22,16 +22,16 @@ class SearchScreen extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
-          searchContainer(context, state),
+          _searchContainer(context, state),
           Expanded(
-            child: resultsContainer(context, state),
+            child: _resultsContainer(context, state),
           ),
         ],
       ),
     );
   }
 
-  Widget searchContainer(BuildContext context, SearchScreenState state) {
+  Widget _searchContainer(BuildContext context, SearchScreenState state) {
     if (state is SearchScreenStateInitial) {
       _searchConttoller.clear();
     }
@@ -75,6 +75,7 @@ class SearchScreen extends StatelessWidget {
               onPressed: () {
                 var pattern = _searchConttoller.value.text.trim();
                 context.read<SearchScreenCubit>().findProducts(pattern);
+                FocusScope.of(context).requestFocus(FocusNode());
               },
               color: Colors.white,
             ),
@@ -84,17 +85,17 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  Widget resultsContainer(BuildContext context, SearchScreenState state) {
+  Widget _resultsContainer(BuildContext context, SearchScreenState state) {
     if (state is SearchScreenStateProgress) {
-      return progressContainer(context, state);
+      return _progressContainer(context, state);
     } else if (state.result == null) {
       return blankResultsContainer(context, state);
     } else {
-      return resultsListContainer(context, state);
+      return _resultsListContainer(context, state);
     }
   }
 
-  Widget progressContainer(BuildContext context, SearchScreenState state) => Center(
+  Widget _progressContainer(BuildContext context, SearchScreenState state) => Center(
           child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
       ));
@@ -116,22 +117,23 @@ class SearchScreen extends StatelessWidget {
         ),
       );
 
-  Widget resultsListContainer(BuildContext context, SearchScreenState state) => Center(
+  Widget _resultsListContainer(BuildContext context, SearchScreenState state) => Center(
         child: ListView.builder(
           itemCount: state.result.length,
           itemBuilder: (context, index) {
             var item = state.result[index];
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: SearchResultsListItemWidget(item, onTap: (){
-                Navigator.pushNamed(context, ProductDetailsScreen.route, arguments: ScreenArguments<Map<String, String>>({
-                  ProductDetailsScreen.keyShopId: item.shop.id,
-                  ProductDetailsScreen.keyProductId: item.product.id
-                }));
-              },
-              onCartButtonTap: (){
-                context.read<SearchScreenCubit>().addProduct(item.shop.id, item.product.id);
-              },),
+              child: SearchResultsListItemWidget(
+                item,
+                onTap: () {
+                  Navigator.pushNamed(context, ProductDetailsScreen.route,
+                      arguments: ScreenArguments<Map<String, String>>({ProductDetailsScreen.keyShopId: item.shop.id, ProductDetailsScreen.keyProductId: item.product.id}));
+                },
+                onCartButtonTap: () {
+                  context.read<SearchScreenCubit>().addProduct(item.shop.id, item.product.id);
+                },
+              ),
             );
           },
         ),

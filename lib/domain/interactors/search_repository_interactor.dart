@@ -10,4 +10,8 @@ class SearchRepositoryInteractor {
     return _repository.findProducts(namePattern: namePattern);
   }
 
+  Future<List<CartItemEntity>> getFavorites() {
+    return _repository.getFavorites();
+  }
+
 }

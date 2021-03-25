@@ -70,4 +70,8 @@ class MarketplaceInteractor extends UseCase {
   Future<List<CartItemEntity>> findProducts({String namePattern}) {
     return _searchRepositoryInteractor.findProducts(namePattern: namePattern);
   }
+
+  Future<List<CartItemEntity>> getFavorites() {
+    return _searchRepositoryInteractor.getFavorites();
+  }
 }

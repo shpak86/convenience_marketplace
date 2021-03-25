@@ -14,12 +14,30 @@ class SearchRepositoryImpl extends SearchRepository {
       _products.forEach((shopId, productsList) {
         ShopEntity shop = _shops.firstWhere((element) => element.id == shopId);
         if (shop != null) {
-          productsList.where((element) => element.name.toLowerCase().contains(namePattern.toLowerCase())).forEach((product) {
+          productsList
+              .where((element) => element.name
+                  .toLowerCase()
+                  .contains(namePattern.toLowerCase()))
+              .forEach((product) {
             result.add(CartItemEntity(shop, product, 0));
           });
         }
       });
     }
+    return Future.delayed(Duration(seconds: 1), () => result);
+  }
+
+  @override
+  Future<List<CartItemEntity>> getFavorites() {
+    List<CartItemEntity> result = [];
+    _products.forEach((shopId, productsList) {
+      ShopEntity shop = _shops.firstWhere((element) => element.id == shopId);
+      if (shop != null) {
+        productsList.where((element) => element.favorite).forEach((product) {
+          result.add(CartItemEntity(shop, product, 0));
+        });
+      }
+    });
     return Future.delayed(Duration(seconds: 1), () => result);
   }
 }

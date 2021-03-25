@@ -23,7 +23,7 @@ class ProductDetailsScreen extends StatelessWidget {
       create: (context) => ProductDetailsScreenCubit()..getProduct(shopId, productId),
       child: BlocBuilder<ProductDetailsScreenCubit, ProductDetailsScreenState>(
         builder: (context, state) => Scaffold(
-            appBar: AppBar(title: Text("Product")),
+            appBar: AppBar(title: Text("Product"),),
             floatingActionButton: displayCartButton == "true"
                 ? FloatingActionButton.extended(
                     onPressed: () => context.read<ProductDetailsScreenCubit>().addToCart(state.shopId, state.product.id),

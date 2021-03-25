@@ -1,3 +1,4 @@
+import 'package:convenience_marketplace/domain/entities/cart_item_entity.dart';
 import 'package:convenience_marketplace/domain/entities/product_entity.dart';
 import 'package:convenience_marketplace/domain/entities/search_parameters.dart';
 
@@ -7,4 +8,5 @@ abstract class ProductsRepository {
   Future<ProductEntity> getProduct(String shopId, String productId);
 
   Future<ProductEntity> switchFavorite(String shopId, String productId);
+
 }

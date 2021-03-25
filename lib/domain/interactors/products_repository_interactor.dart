@@ -1,3 +1,4 @@
+import 'package:convenience_marketplace/domain/entities/cart_item_entity.dart';
 import 'package:convenience_marketplace/domain/entities/product_entity.dart';
 import 'package:convenience_marketplace/domain/entities/search_parameters.dart';
 import 'package:convenience_marketplace/domain/repositories/products_repository.dart';
@@ -18,4 +19,5 @@ class ProductsRepositoryInteractor {
   Future<ProductEntity> switchProduct(String shopId, String productId) {
     return _repository.switchFavorite(shopId, productId);
   }
+  
 }
