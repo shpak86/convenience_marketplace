@@ -47,7 +47,7 @@ class ShopsListItemWidget extends StatelessWidget {
       child: Column(
         children: [
           mainGroup(context),
-          shoppingButtonContainer(context),
+          // shoppingButtonContainer(context),
         ],
       ),
     );
@@ -171,11 +171,11 @@ class ShopsListItemWidget extends StatelessWidget {
         onPressed: () => Navigator.pushNamed(context, ProductsListScreen.route, arguments: ScreenArguments<String>(_shop.id)),
         style: ButtonStyle(
           overlayColor: MaterialStateProperty.all<Color>(Colors.white.withOpacity(0.2)),
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
-              side: BorderSide(color: Colors.green),
+              side: BorderSide(color: Colors.blue),
             ),
           ),
         ),

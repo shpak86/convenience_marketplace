@@ -2,14 +2,14 @@ part of 'cart_screen_cubit.dart';
 
 @immutable
 abstract class CartScreenState {
-  List<CartItemEntity> items;
+  List<ShopProductEntity> items;
   String error;
 }
 
 class CartScreenStateInitial extends CartScreenState {}
 
 class CartScreenStateValue extends CartScreenState {
-  CartScreenStateValue(List<CartItemEntity> items) {
+  CartScreenStateValue(List<ShopProductEntity> items) {
     this.items = items;
   }
 }

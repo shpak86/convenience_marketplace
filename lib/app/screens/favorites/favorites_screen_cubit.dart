@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:convenience_marketplace/di/dependency_provider.dart';
-import 'package:convenience_marketplace/domain/entities/cart_item_entity.dart';
+import 'package:convenience_marketplace/domain/entities/shop_product_entity.dart';
 import 'package:convenience_marketplace/domain/use_cases/use_case.dart';
 import 'package:meta/meta.dart';
 
@@ -16,6 +16,6 @@ class FavoritesScreenCubit extends Cubit<FavoritesScreenState> {
   }
 
   addProduct(String shopId, String productId) {
-    _useCase.addProductToCart(shopId, productId);
+    _useCase.addToCart(shopId, productId);
   }
 }

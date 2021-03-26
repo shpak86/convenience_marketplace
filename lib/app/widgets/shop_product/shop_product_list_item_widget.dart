@@ -1,15 +1,19 @@
 import 'package:convenience_marketplace/app/widgets/cart/cart_button_widget.dart';
-import 'package:convenience_marketplace/domain/entities/cart_item_entity.dart';
+import 'package:convenience_marketplace/domain/entities/product_entity.dart';
+import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
+import 'package:convenience_marketplace/domain/entities/shop_product_entity.dart';
 import 'package:flutter/material.dart';
 
-class SearchResultsListItemWidget extends StatelessWidget {
-  CartItemEntity _cartItemEntity;
+class ShopProductListItemWidget extends StatelessWidget {
+  ShopProductEntity _cartItemEntity;
   Function _onCartButtonTap;
   Function _onTap;
+  Color _splashColor;
 
-  SearchResultsListItemWidget(this._cartItemEntity, {Function onCartButtonTap, Function onTap}) {
+  ShopProductListItemWidget(this._cartItemEntity, {Function onCartButtonTap, Function onTap, Color splashColor }) {
     _onCartButtonTap = onCartButtonTap ?? () {};
     _onTap = onTap ?? () {};
+    _splashColor = splashColor ?? Colors.grey;
   }
 
   @override
@@ -19,6 +23,7 @@ class SearchResultsListItemWidget extends StatelessWidget {
 
   Widget mainContainer(BuildContext context) {
     return InkWell(
+      splashColor: _splashColor,
       onTap: _onTap,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,31 +45,36 @@ class SearchResultsListItemWidget extends StatelessWidget {
         ),
       );
 
-  bodyContainer(context) {
+  bodyContainer(BuildContext context) {
     var shop = _cartItemEntity.shop;
     var product = _cartItemEntity.product;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        productNameContainer(context, product),
-        shopInfoGroup(context, shop),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            CartButtonWidget(
-              product.price.toStringAsFixed(2),
-              product.units,
-              onTap: _onCartButtonTap,
-            ),
-          ],
-        ),
-        // priceContainer(context)
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 4.0, bottom: 4.0, left: 4.0, right: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          productNameContainer(context, product),
+          shopInfoGroup(context, shop),
+          controlsContainer(context, product),
+          // priceContainer(context)
+        ],
+      ),
     );
   }
 
-  productNameContainer(context, product) => Padding(
+  controlsContainer(BuildContext context, ProductEntity product) => Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          CartButtonWidget(
+            product.price.toStringAsFixed(2),
+            product.units,
+            onTap: _onCartButtonTap,
+          ),
+        ],
+      );
+
+  productNameContainer(BuildContext context, ProductEntity product) => Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
           product.name,
@@ -73,7 +83,7 @@ class SearchResultsListItemWidget extends StatelessWidget {
         ),
       );
 
-  shopInfoGroup(context, shop) => Padding(
+  shopInfoGroup(BuildContext context, ShopEntity shop) => Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

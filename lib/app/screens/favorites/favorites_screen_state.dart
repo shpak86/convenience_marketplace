@@ -2,14 +2,14 @@ part of 'favorites_screen_cubit.dart';
 
 @immutable
 abstract class FavoritesScreenState {
-  List<CartItemEntity> favorites;
+  List<ShopProductEntity> favorites;
   String error;
 }
 
 class FavoritesScreenStateInitial extends FavoritesScreenState {}
 
 class FavoritesScreenStateValue extends FavoritesScreenState {
-  FavoritesScreenStateValue(List<CartItemEntity> favorites) {
+  FavoritesScreenStateValue(List<ShopProductEntity> favorites) {
     this.favorites = favorites;
   }
 }

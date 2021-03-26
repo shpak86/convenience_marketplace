@@ -43,18 +43,21 @@ class CartButtonWidget extends StatelessWidget {
           ),
         ),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.add_shopping_cart,
-            color: _textColor,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 6.0),
-            child: productPriceLabel(context),
-          )
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 6.0),
+              child: productPriceLabel(context),
+            ),
+            Icon(
+              Icons.add_shopping_cart,
+              color: _textColor,
+            ),
+          ],
+        ),
       ),
     );
   }

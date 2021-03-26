@@ -1,4 +1,4 @@
-import 'package:convenience_marketplace/domain/entities/cart_item_entity.dart';
+import 'package:convenience_marketplace/domain/entities/shop_product_entity.dart';
 import 'package:convenience_marketplace/domain/entities/product_entity.dart';
 import 'package:convenience_marketplace/domain/entities/search_parameters.dart';
 import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
@@ -52,26 +52,31 @@ class MarketplaceInteractor extends UseCase {
   }
 
   @override
-  Future<List<CartItemEntity>> getCart() {
+  Future<List<ShopProductEntity>> getCart() {
     return _cartRepositoryInteractor.getCart();
   }
 
   @override
-  Future<List<CartItemEntity>> addProductToCart(String shopId, String productId) {
+  Future<List<ShopProductEntity>> addToCart(String shopId, String productId) {
     return _cartRepositoryInteractor.add(shopId, productId);
   }
 
   @override
-  Future<List<CartItemEntity>> removeProductFromCart(String shopId, String productId) {
-    return _cartRepositoryInteractor.remove(shopId, productId);
+  Future<List<ShopProductEntity>> removeFromCart(String shopId, String productId, {int quantity = 1}) {
+    return _cartRepositoryInteractor.remove(shopId, productId, quantity: quantity);
   }
 
   @override
-  Future<List<CartItemEntity>> findProducts({String namePattern}) {
+  Future<List<ShopProductEntity>> cleanCart() {
+    _cartRepositoryInteractor.clean();
+  }
+
+  @override
+  Future<List<ShopProductEntity>> findProducts({String namePattern}) {
     return _searchRepositoryInteractor.findProducts(namePattern: namePattern);
   }
 
-  Future<List<CartItemEntity>> getFavorites() {
+  Future<List<ShopProductEntity>> getFavorites() {
     return _searchRepositoryInteractor.getFavorites();
   }
 }

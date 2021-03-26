@@ -1,24 +1,24 @@
 import 'package:convenience_marketplace/app/screens/products/details/product_details_screen.dart';
-import 'package:convenience_marketplace/app/screens/seach/search_screen_cubit.dart';
+import 'package:convenience_marketplace/app/screens/catalog/catalog_screen_cubit.dart';
 import 'package:convenience_marketplace/app/utils/screen_arguments.dart';
-import 'package:convenience_marketplace/app/widgets/search/search_results_list_item_widget.dart';
+import 'package:convenience_marketplace/app/widgets/shop_product/shop_product_list_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SearchScreen extends StatelessWidget {
+class CatalogScreen extends StatelessWidget {
   var _searchConttoller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SearchScreenCubit(),
-      child: BlocBuilder<SearchScreenCubit, SearchScreenState>(
+      create: (context) => CatalogScreenCubit(),
+      child: BlocBuilder<CatalogScreenCubit, CatalogScreenState>(
         builder: (context, state) => _mainContainer(context, state),
       ),
     );
   }
 
-  Widget _mainContainer(BuildContext context, SearchScreenState state) {
+  Widget _mainContainer(BuildContext context, CatalogScreenState state) {
     return SafeArea(
       child: Column(
         children: [
@@ -31,8 +31,8 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  Widget _searchContainer(BuildContext context, SearchScreenState state) {
-    if (state is SearchScreenStateInitial) {
+  Widget _searchContainer(BuildContext context, CatalogScreenState state) {
+    if (state is CatalogScreenStateInitial) {
       _searchConttoller.clear();
     }
     return Padding(
@@ -74,7 +74,7 @@ class SearchScreen extends StatelessWidget {
               icon: Icon(Icons.search),
               onPressed: () {
                 var pattern = _searchConttoller.value.text.trim();
-                context.read<SearchScreenCubit>().findProducts(pattern);
+                context.read<CatalogScreenCubit>().findProducts(pattern);
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               color: Colors.white,
@@ -85,8 +85,8 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  Widget _resultsContainer(BuildContext context, SearchScreenState state) {
-    if (state is SearchScreenStateProgress) {
+  Widget _resultsContainer(BuildContext context, CatalogScreenState state) {
+    if (state is CatalogScreenStateProgress) {
       return _progressContainer(context, state);
     } else if (state.result == null) {
       return blankResultsContainer(context, state);
@@ -95,12 +95,12 @@ class SearchScreen extends StatelessWidget {
     }
   }
 
-  Widget _progressContainer(BuildContext context, SearchScreenState state) => Center(
+  Widget _progressContainer(BuildContext context, CatalogScreenState state) => Center(
           child: CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
       ));
 
-  Widget blankResultsContainer(BuildContext context, SearchScreenState state) => Center(
+  Widget blankResultsContainer(BuildContext context, CatalogScreenState state) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -117,23 +117,21 @@ class SearchScreen extends StatelessWidget {
         ),
       );
 
-  Widget _resultsListContainer(BuildContext context, SearchScreenState state) => Center(
+  Widget _resultsListContainer(BuildContext context, CatalogScreenState state) => Center(
         child: ListView.builder(
           itemCount: state.result.length,
           itemBuilder: (context, index) {
             var item = state.result[index];
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SearchResultsListItemWidget(
-                item,
-                onTap: () {
-                  Navigator.pushNamed(context, ProductDetailsScreen.route,
-                      arguments: ScreenArguments<Map<String, String>>({ProductDetailsScreen.keyShopId: item.shop.id, ProductDetailsScreen.keyProductId: item.product.id}));
-                },
-                onCartButtonTap: () {
-                  context.read<SearchScreenCubit>().addProduct(item.shop.id, item.product.id);
-                },
-              ),
+            return ShopProductListItemWidget(
+              item,
+              splashColor: Colors.amber,
+              onTap: () {
+                Navigator.pushNamed(context, ProductDetailsScreen.route,
+                    arguments: ScreenArguments<Map<String, String>>({ProductDetailsScreen.keyShopId: item.shop.id, ProductDetailsScreen.keyProductId: item.product.id}));
+              },
+              onCartButtonTap: () {
+                context.read<CatalogScreenCubit>().addProduct(item.shop.id, item.product.id);
+              },
             );
           },
         ),

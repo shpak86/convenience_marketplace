@@ -1,6 +1,4 @@
-import 'package:convenience_marketplace/domain/entities/cart_item_entity.dart';
-import 'package:convenience_marketplace/domain/entities/product_entity.dart';
-import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
+import 'package:convenience_marketplace/domain/entities/shop_product_entity.dart';
 import 'package:convenience_marketplace/domain/repositories/cart_repository.dart';
 
 class CartRepositoryInteractor {
@@ -8,15 +6,19 @@ class CartRepositoryInteractor {
 
   CartRepositoryInteractor(this._repository);
 
-  Future<List<CartItemEntity>> getCart() async {
+  Future<List<ShopProductEntity>> getCart() async {
     return _repository.getCart();
   }
 
-  Future<List<CartItemEntity>> add(String shopId, String productId) {
+  Future<List<ShopProductEntity>> add(String shopId, String productId) {
     return _repository.add(shopId, productId);
   }
 
-  Future<List<CartItemEntity>> remove(String shopId, String productId) {
-    return _repository.remove(shopId, productId);
+  Future<List<ShopProductEntity>> remove(String shopId, String productId, {int quantity = 1}) {
+    return _repository.remove(shopId, productId, quantity: quantity);
+  }
+
+  Future<List<ShopProductEntity>> clean() {
+    return _repository.clean();
   }
 }

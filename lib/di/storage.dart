@@ -1,4 +1,4 @@
-import 'package:convenience_marketplace/domain/entities/cart_item_entity.dart';
+import 'package:convenience_marketplace/domain/entities/shop_product_entity.dart';
 import 'package:convenience_marketplace/domain/entities/product_entity.dart';
 import 'package:convenience_marketplace/domain/entities/shop_entity.dart';
 
@@ -39,5 +39,5 @@ class Storage {
     ],
   };
 
-  static Map<String, CartItemEntity> cart = {};
+  static Map<String, ShopProductEntity> cart = {};
 }

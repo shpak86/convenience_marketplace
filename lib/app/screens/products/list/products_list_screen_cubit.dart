@@ -16,10 +16,10 @@ class ProductsListScreenCubit extends Cubit<ProductsListScreenState> {
   }
 
   addProduct(String shopId, String productId) {
-    _useCase.addProductToCart(shopId, productId);
+    _useCase.addToCart(shopId, productId);
   }
 
   addToCart(String shopId, String productId) {
-    _useCase.addProductToCart(shopId, productId);
+    _useCase.addToCart(shopId, productId);
   }
 }

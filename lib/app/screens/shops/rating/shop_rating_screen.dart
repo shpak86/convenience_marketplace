@@ -13,11 +13,15 @@ class ShopRatingScreen extends StatelessWidget {
     String shopId = arguments.value ?? "";
 
     return Scaffold(
-      appBar: AppBar(title: Text("Rate a shop")),
+      appBar: AppBar(
+        title: Text("Rate a shop"),
+        backgroundColor: Colors.blue,
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => {},
         label: Text("Send a rating"),
         icon: Icon(Icons.star_rate_rounded),
+        backgroundColor: Colors.blue,
       ),
       body: BlocProvider(
         create: (context) => ShopRatingScreenCubit()..getShop(shopId),
@@ -30,7 +34,10 @@ class ShopRatingScreen extends StatelessWidget {
 
   Widget mainContainer(BuildContext context, ShopRatingScreenState state) {
     if (state.shop == null) {
-      return Center(child: CircularProgressIndicator());
+      return Center(
+          child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+      ));
     } else {
       return Center(
         child: ListView(

@@ -23,7 +23,9 @@ class ShopsListScreen extends StatelessWidget {
   Widget mainContainer(BuildContext context, ShopsListScreenState state) {
     if (state.shops == null) {
       return Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+        ),
       );
     } else {
       return Container(
@@ -36,7 +38,9 @@ class ShopsListScreen extends StatelessWidget {
                 child: ShopsListItemWidget(
                   item,
                   onTap: () {
-                    Navigator.pushNamed(context, ShopDetailsScreen.route, arguments: ScreenArguments<String>(item.id)).then((value) => context.read<ShopsListScreenCubit>().getShopsList());
+                    Navigator.pushNamed(context, ShopDetailsScreen.route, arguments: ScreenArguments<String>(item.id)).then(
+                      (value) => context.read<ShopsListScreenCubit>().getShopsList(),
+                    );
                   },
                 ),
               );

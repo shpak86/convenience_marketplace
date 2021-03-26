@@ -17,13 +17,17 @@ class ShopDetailsScreen extends StatelessWidget {
     String shopId = arguments.value;
 
     return Scaffold(
-      appBar: AppBar(title: Text("Details")),
+      appBar: AppBar(
+        title: Text("Details"),
+        backgroundColor: Colors.blue,
+      ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => {
           Navigator.pushNamed(context, ProductsListScreen.route, arguments: ScreenArguments<String>(shopId))
         },
         label: Text("Go shopping"),
         icon: Icon(Icons.shopping_cart_outlined),
+        backgroundColor: Colors.blue,
       ),
       body: BlocProvider(
         create: (context) => ShopDetailsScreenCubit()..getShop(shopId),
