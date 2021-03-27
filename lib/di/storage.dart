@@ -9,7 +9,7 @@ class Storage {
     ShopEntity("1", "Megamall", description, "Moscow, Russia, 1 Lenina str.", "tools", rating: 3.1, imageUri: "assets/images/supermarket.png"),
     ShopEntity("2", "Coffee & sweets", description, "Moscow, Russia, 2 Lenina str.", "Grocery"),
     ShopEntity("3", "Fish bay", description, "Moscow, Russia, 3 Lenina str.", "tools", imageUri: "assets/images/shopping.png"),
-    ShopEntity("4", "Susi and other fresh Japanese food directly from Tokyo", description, "Moscow, Russia, 4 Lenina str.", "Mall", rating: 4.2, imageUri: "assets/images/supermarket.png"),
+    ShopEntity("4", "Sushi and other fresh Japanese food directly from Tokyo", description, "Moscow, Russia, 4 Lenina str.", "Mall", rating: 4.2, imageUri: "assets/images/supermarket.png"),
     ShopEntity("5", "Vusal", description, "Moscow, Russia, 5 Lenina str.", "tools", rating: 1.2, imageUri: "assets/images/shopping.png"),
   ];
 

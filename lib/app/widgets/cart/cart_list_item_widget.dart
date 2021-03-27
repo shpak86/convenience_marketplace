@@ -36,7 +36,7 @@ class CartListItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          _imageContainer(),
+          _imageContainer(context),
           Expanded(child: _bodyContainer(context)),
         ],
       ),
@@ -44,13 +44,22 @@ class CartListItemWidget extends StatelessWidget {
     );
   }
 
-  Widget _imageContainer() => ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        child: Image.asset(
-          _cartItemEntity.product.imageUri.isEmpty ? 'assets/images/product-default.png' : _cartItemEntity.product.imageUri,
-          width: 110,
-          height: 110,
-        ),
+  Widget _imageContainer(BuildContext context) => Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            child: Image.asset(
+              _cartItemEntity.product.imageUri.isEmpty ? 'assets/images/product-default.png' : _cartItemEntity.product.imageUri,
+              width: 110,
+              height: 110,
+            ),
+          ),
+          Row(
+            children: [
+              _priceContainer(context),
+            ],
+          )
+        ],
       );
 
   _bodyContainer(context) {
@@ -63,13 +72,7 @@ class CartListItemWidget extends StatelessWidget {
         children: [
           _productNameContainer(context, product),
           _shopInfoGroup(context, shop),
-          Row(
-            children: [
-              _controlsGroup(context),
-              Spacer(),
-              _priceContainer(context),
-            ],
-          ),
+          _controlsGroup(context),
         ],
       ),
     );
@@ -104,18 +107,19 @@ class CartListItemWidget extends StatelessWidget {
       );
 
   _controlsGroup(context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        // mainAxisSize: MainAxisSize.min,
-        children: [
-          _trashButton(),
-          _minusButton(),
-          _counterLabel(),
-          _plusButton(),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      // mainAxisSize: MainAxisSize.min,
+      children: [
+        _minusButton(),
+        _counterLabel(),
+        _plusButton(),
+        Spacer(),
+        Padding(
+          padding: EdgeInsets.only(right: 16.0),
+          child: _trashButton(),
+        ),
+      ],
     );
   }
 
@@ -161,13 +165,13 @@ class CartListItemWidget extends StatelessWidget {
 
   _priceContainer(context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 8.0, right: 16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Container(
           padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0), color: Colors.green),
           child: Text(
-            "\$" + (_cartItemEntity.product.price * _cartItemEntity.count).toStringAsFixed(2).toString(),
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            "\$" + (_cartItemEntity.product.price).toStringAsFixed(2).toString(),
+            style: TextStyle(color: Colors.white),
           )),
     );
   }

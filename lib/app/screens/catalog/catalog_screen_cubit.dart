@@ -21,4 +21,8 @@ class CatalogScreenCubit extends Cubit<CatalogScreenState> {
   addProduct(String shopId, String productId) {
     _useCase.addToCart(shopId, productId);
   }
+
+  init() {
+    emit(CatalogScreenStateInitial());
+  }
 }

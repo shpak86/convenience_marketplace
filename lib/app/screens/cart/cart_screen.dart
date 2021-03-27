@@ -39,7 +39,10 @@ class CartScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  _cartTotalContainer(context, state),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0, right:16.0),
+                    child: _cartTotalContainer(context, state),
+                  ),
                 ],
               ),
             ],
@@ -105,23 +108,15 @@ class CartScreen extends StatelessWidget {
 
   Widget _cartTotalContainer(BuildContext context, CartScreenState state) {
     double total = state.items.map((element) => element.product.price * element.count).reduce((value, element) => value + element);
-    return Container(
-      padding: EdgeInsets.all(12.0),
-      decoration: BoxDecoration(borderRadius: BorderRadius.only(topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)), color: Colors.lightGreen),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            "Total: ",
-            style: TextStyle(fontSize: 18, color: Colors.white),
-          ),
-          Text(
-            "\$${total.toStringAsFixed(2)}",
-            style: TextStyle(fontSize: 18, color: Colors.white),
-          )
-        ],
+    return FloatingActionButton.extended(
+      onPressed: () {},
+      label: Text(
+        "Total: \$${total.toStringAsFixed(2)}",
+        style: TextStyle(fontSize: 18, color: Colors.white),
       ),
+      backgroundColor: Colors.green,
+
     );
+
   }
 }
